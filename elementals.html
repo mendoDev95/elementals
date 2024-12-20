@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv=”Content-Type” content=”text/html; charset=UTF-8″ />
+        <title>Elementals</title>
+        <link rel="stylesheet" href="./style.css">
+        <script src="./js/elementals.js" defer></script>
+    </head>
+    <body>
+<!-- Seleccion de Mascota -->
+        <section id="seleccionarMascota">
+
+            <h1 class="titulo">ELEMENTALS! 🔥💧🌱</h1>
+
+            <h2 class="subtitulo">Elige tu mascota:</h2>
+        
+            <!-- Mascotas:
+            Hipodoge -> Agua
+            Capipepo -> Planta
+            Ratigueya -> Fuego
+            Langostelvis -> Fuego y Agua
+            Tucaplama -> Tierra y Fuego
+            Pydoc -> Agua y Fuego 
+            -->
+            
+            <div id="contenedorTarjetas" class="tarjetas">
+                
+            </div>
+                
+            <button id="btnMascota">Seleccionar</button>
+        </section>
+
+<!-- Seleccion de ataque -->
+        <section id="seleccionarAtaque">
+            <h2 class="subtitulo">Elige tu secuencia de ataques:</h2>
+
+            <div id="contenedorAtaques" class="ataques">
+                
+            </div>
+        </section>
+
+<!-- Mensajes de Combates -->
+        <section id="mensajes">
+            <p id="resultado">Suerte en tu eleccion!!</p>
+        </section>
+
+<!-- REINICIAR JUEGO -->
+        <section id="reiniciar">
+            <button id="btnReiniciar">Presione Aqui para volver a jugar</button>
+        </section>
+
+<!-- Informacion de los jugadores -->
+        <section id="infoJugadores">
+            <div class="jugador">
+                <h3>Jugador</h3>
+                <img id="imgJugador" src="" class="img">
+                <p id = "mascotaJugador"></p>
+                <p id = "vidaJugador">0</p>
+                <div id="ataqueDelJugador"></div>
+            </div>
+            <div class="enemigo">
+                <h3>Enemigo</h3>
+                <img id="imgEnemigo" src="" class="img">
+                <p id = "mascotaEnemigo"></p>
+                <p id = "vidaEnemigo">0</p>
+                <div id="ataqueDelEnemigo"></div>  
+            </div>
+            </section>
+    </body>
+</html>

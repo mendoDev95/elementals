@@ -1,0 +1,490 @@
+@import url('https://fonts.googleapis.com/css2?family=Grandstander:ital,wght@0,100..900;1,100..900&display=swap');
+/* <uniquifier>: Use a unique and descriptive class name */
+/* <weight>: Use a value from 100 to 900 */
+
+/* .grandstander-<uniquifier> {
+    font-family: "Grandstander", cursive;
+    font-optical-sizing: auto;
+    font-weight: <weight>;
+    font-style: normal;
+} */
+
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-family: "Grandstander", cursive;
+    font-optical-sizing: auto;
+    font-weight: bold;
+    font-style: normal;
+    text-align: center;
+    background: rgb(2, 0, 36);
+    background: linear-gradient(
+    90deg,
+    rgba(2, 0, 36, 1) 0%,
+    rgba(6, 87, 102, 1) 48%,
+    rgba(2, 0, 36, 1) 100%);
+    /* background-image: url(assest/fondo.jpeg);
+	background-position: bottom;
+	background-size: cover;
+	background-attachment: fixed; */
+}
+
+.titulo {
+    color: hotpink;
+    font-style: normal;
+    font-family: "Grandstander", cursive;
+    height: 60px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 20px;
+}
+
+#seleccionarMascota {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+    border: 2px solid hotpink;
+    background: linear-gradient(
+    15deg,
+    rgba(0, 0, 0, 1) 0%,
+    rgba(23, 10, 202, 0.321) 22%,
+    rgb(189, 192, 13) 39%,
+    rgb(192, 13, 13) 63%,
+    rgba(28, 82, 15, 0.396) 83%,
+    rgba(0, 0, 0, 1) 100%);
+    box-shadow: 0px 0px 10px 10px rgb(36, 0, 30);
+    border-radius: 160px;
+    width: max-content;
+    min-height: 80vh;
+    padding: 20px;
+    gap: 15px;
+}
+
+.subtitulo {
+    color: white;
+    text-shadow: 4px 0px 1px #000000;
+}
+
+input {
+    display: none;
+}
+input:hover + label {
+    transform: translateY(-5px);
+    border: 3px solid #70caf4;
+    box-shadow: 0px 0px 8px 5px #70caf491;
+}
+input:hover + label > img {
+    transform: scale(1.15) translateY(-5px);
+}
+input:hover + label > p {
+    transform: scale(1.1) translateY(1px);
+}
+input:active + label {
+    box-shadow: 0px 0px 8px 5px #00ff0d;
+    border: 2px solid #c3ff99;
+}
+input:checked+label {
+    display: flex;
+    box-sizing: border-box;
+    box-shadow: 0px 20px 20px 4px rgb(0, 0, 0, .3);
+    margin: 2px;
+    border: var(--border-blur);
+    border-radius: 60px;
+    background: rgba(255, 255, 255, 0.301);
+    backdrop-filter: blur(70px);
+    width: 180px;
+    height: 120px;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    cursor: pointer;
+    transition: all ease-in-out .3s;
+}
+
+.tarjetas {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    justify-items: center; 
+    column-gap: 15px;
+    row-gap: 15px;
+}
+
+.tarjetas img {
+    width: 80px;
+}
+.img {
+    width: 80px;
+}
+
+.tarjetas p {
+    display: flex;
+    width: 100%;
+    height: 30px;
+    border: 1px solid black;
+    border-radius: 20px;
+    color: white;
+    justify-content: center;
+    align-items: center;
+}
+
+.selectorMascotaHipodoge {
+    display: flex;
+    box-sizing: border-box;
+    box-shadow: 0px 20px 20px 4px rgb(0, 0, 0, .3);
+    margin: 2px;
+    border: var(--border-blur);
+    border-radius: 60px;
+    background-color: #0400ff48;
+    backdrop-filter: blur(70px);
+    width: 180px;
+    height: 110px;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    cursor: pointer;
+}
+.hipo {
+    background-color: #02006b;
+}
+.hipo:hover {
+    background-color: #0300c0;
+    text-shadow: 4px 0px 1px #000000;
+    filter: drop-shadow(0 0 5px black);
+}
+.hipo:active {
+    filter: drop-shadow(0 0 10px hotpink);
+}
+
+.selectorMascotaCapipepo {
+    display: flex;
+    box-sizing: border-box;
+    box-shadow: 0px 20px 20px 4px rgb(0, 0, 0, .3);
+    margin: 2px;
+    border: var(--border-blur);
+    border-radius: 60px;
+    backdrop-filter: blur(70px);
+    background-color: #00ff0048;
+    width: 180px;
+    height: 110px;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    cursor: pointer;
+}
+.capi {
+    background-color: #006400;
+}
+.capi:hover {
+    background-color: #00a500;
+    text-shadow: 4px 0px 1px #000000;
+    filter: drop-shadow(0 0 5px black);
+}
+.capi:active {
+    filter: drop-shadow(0 0 10px hotpink);
+}
+
+.selectorMascotaRatigueya {
+    display: flex;
+    box-sizing: border-box;
+    box-shadow: 0px 20px 20px 4px rgb(0, 0, 0, .3);
+    margin: 2px;
+    border: var(--border-blur);
+    border-radius: 60px;
+    backdrop-filter: blur(70px);
+    background-color: #ff00008e;
+    width: 180px;
+    height: 110px;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    cursor: pointer;
+}
+.rati {
+    background-color: #770000;
+}
+.rati:hover {
+    background-color: #bd0000;
+    text-shadow: 4px 0px 1px #000000;
+    filter: drop-shadow(0 0 5px black);
+}
+.rati:active {
+    filter: drop-shadow(0 0 10px hotpink);
+}
+
+.selectorMascotaPydos {
+    display: flex;
+    box-sizing: border-box;
+    box-shadow: 0px 20px 20px 4px rgb(0, 0, 0, .3);
+    margin: 2px;
+    border: var(--border-blur);
+    border-radius: 60px;
+    background: linear-gradient(#0400ff96, yellow, #0400ff96);
+    backdrop-filter: blur(70px);
+    width: 180px;
+    height: 110px;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    cursor: pointer;
+}
+.pydo {
+    background-color: #8c8f00;
+}
+.pydo:hover {
+    background-color: #e7eb00;
+    text-shadow: 4px 0px 1px #000000;
+    filter: drop-shadow(0 0 5px black);
+}
+.pydo:active {
+    filter: drop-shadow(0 0 10px hotpink);
+}
+
+.selectorMascotaTucapalma {
+    display: flex;
+    box-sizing: border-box;
+    box-shadow: 0px 20px 20px 4px rgb(0, 0, 0, .3);
+    margin: 2px;
+    border: var(--border-blur);
+    border-radius: 60px;
+    backdrop-filter: blur(70px);
+    background: linear-gradient(#009100, rgb(255, 166, 0), #009100);
+    width: 180px;
+    height: 110px;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    cursor: pointer;
+}
+.tuca {
+    background-color: #640064;
+}
+.tuca:hover {
+    background-color: #a300a3;
+    text-shadow: 4px 0px 1px #000000;
+    filter: drop-shadow(0 0 5px black);
+}
+.tuca:active {
+    filter: drop-shadow(0 0 10px hotpink);
+}
+
+.selectorMascotaLangostelvis {
+    display: flex;
+    box-sizing: border-box;
+    box-shadow: 0px 20px 20px 4px rgb(0, 0, 0, .3);
+    margin: 2px;
+    border: var(--border-blur);
+    border-radius: 60px;
+    backdrop-filter: blur(70px);
+    background: linear-gradient(rgb(255, 102, 0), rgb(0, 255, 221), rgb(255, 102, 0));
+    width: 180px;
+    height: 110px;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    cursor: pointer;
+}
+.lango {
+    background-color: rgb(190, 124, 0);
+}
+.lango:hover {
+    background-color: rgb(255, 166, 0);
+    text-shadow: 4px 0px 1px #000000;
+    filter: drop-shadow(0 0 5px black);
+}
+.lango:active {
+    filter: drop-shadow(0 0 10px hotpink);
+}
+
+#btnMascota {
+    box-sizing: border-box;
+    border: none;
+    background: linear-gradient(white, yellow, transparent);
+    border-radius: 10px;
+    font-family: "Grandstander", cursive;
+    font-optical-sizing: auto;
+    font-weight: bold;
+    font-style: italic;
+    height: 20px;
+}
+#btnMascota:hover {
+    box-sizing: border-box;
+    border: none;
+    background: linear-gradient(white, yellow, green);
+    border-radius: 10px;
+    font-family: "Grandstander", cursive;
+    font-optical-sizing: auto;
+    font-weight: bold;
+    font-style: italic;
+    height: 20px;
+}
+
+#seleccionarAtaque {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-sizing: border-box;
+    border: none;
+    border-radius: 70px;
+    padding: 20px;
+    background-color: #2f0a8e2f;
+    box-shadow: 0px 0px 10px 10px rgb(36, 0, 30);
+}
+.ataques{
+    display: flex;
+    gap: 10px;
+}
+.btnAtaque{
+    background-color: gray;
+    width: 60px;
+    height: 50px;
+    font-size: 25px;
+    line-height: 20px;
+    border: 3px solid #ff89eb;
+    padding: 5px;
+    border-radius: 20px;
+    box-sizing: border-box;
+    margin: 5px;
+    transition: all 300ms ease-in-out;
+    cursor:pointer
+}
+.btnAtaque:hover{
+    background: linear-gradient(white, yellow, transparent);
+    filter: drop-shadow(0 0 5px black);
+    border-radius: 10px;
+    cursor:pointer
+}
+
+#infoJugadores{
+    margin-top: 20px;
+    display: grid;
+    grid-column-gap: 20px;
+    grid-template-columns: 120px 1fr 1fr 1fr 120px;
+    grid-template-rows: 1fr;
+    justify-items: stretch;
+}
+.jugador{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 5%;
+    border: transparent;
+    border-radius: 5pc;
+    background-color: #2f0a8e2f;
+    box-shadow: 0px 0px 10px 10px rgb(36, 0, 30);
+    grid-column-start: 1;
+    grid-column-end: 2;
+    grid-row: 1/2; 
+}
+#mascotaJugador{
+    color: #02007c;
+    font-size: 18px;
+    font-weight: bold;
+    text-shadow: 0px 0px 5px rgba(255, 255, 255, 0.5);
+}
+#vidaJugador, #vidaEnemigo{
+    color: #00ac00;
+}
+.enemigo{
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 5%;
+    border: transparent;
+    border-radius: 10pc;
+    background-color: #2f0a8e2f;
+    box-shadow: 0px 0px 10px 10px rgb(36, 0, 30);
+    grid-column-start: 5;
+    grid-column-end: 6;
+    grid-row: 1/2;
+}
+#mascotaEnemigo{
+    color: #af0000;
+    font-size: 18px;
+    font-weight: bold;
+    text-shadow: 0px 0px 5px rgba(255, 255, 255, 0.5);
+}
+
+#btnReiniciar{
+    margin-top: 20px;
+    border-radius: 10px;
+    box-sizing: border-box;
+    border: none;
+    background: linear-gradient(white, yellow, transparent);
+    border-radius: 10px;
+    font-family: "Grandstander", cursive;
+    font-optical-sizing: auto;
+    font-weight: bold;
+    font-style: italic;
+    height: 20px;
+}
+#btnReiniciar:hover{
+    box-sizing: border-box;
+    border: none;
+    background: linear-gradient(white, yellow, green);
+    border-radius: 10px;
+    font-family: "Grandstander", cursive;
+    font-optical-sizing: auto;
+    font-weight: bold;
+    font-style: italic;
+    height: 20px;
+}
+
+#mensajes {
+    display: flex;
+    width: 300px;
+    height: 80px;
+    flex-direction: column;
+    justify-content: center;
+    padding: 10px;
+    margin-top: 20px;
+    box-sizing: content-box;
+    border: 1px solid hotpink;
+    border-radius: 50px;
+    background-color: #2f0a8e2f;
+    box-shadow: 0px 0px 10px 10px rgb(36, 0, 30);
+}
+
+@media (max-width: 400px){
+    .titulo {
+        width: 70%;
+        height: 70%;
+    }
+    .tarjetas {
+        display:flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    #seleccionarMascota {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+        background-color: #2f0a8e2f;
+        margin: 10px;
+        box-sizing: border-box;
+        border: 1px solid hotpink;
+        border-radius: 160px;
+        width: 100%;
+        height: 100%;
+        padding: 20px;
+    }
+    .btnAtaque{
+        background-color: gray;
+        width: 40px;
+        height: 50px;
+        font-size: 20px;
+        line-height: 20px;
+        border: 3px solid #ff89eb;
+        padding: 5px;
+        border-radius: 20px;
+        box-sizing: border-box;
+        margin: 5px;
+        transition: all 300ms ease-in-out;
+        cursor: pointer;
+    }
+}
