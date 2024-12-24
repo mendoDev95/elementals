@@ -38,7 +38,7 @@ body {
 .titulo {
     color: hotpink;
     font-style: normal;
-    font-family: "04b", cursive;
+    font-family: "04b", 'Arial Narrow Bold';
     height: 60px;
     width: 100%;
     display: flex;
@@ -452,6 +452,37 @@ input:checked+label {
     border-radius: 50px;
     background-color: #2f0a8e2f;
     box-shadow: 0px 0px 10px 10px rgb(36, 0, 30);
+}
+
+#verMapa {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+#mapa {
+    border: 2px solid hotpink;
+    box-shadow: 0px 0px 10px 10px rgb(36, 0, 30);
+}
+
+.iterfazControl {
+    display: flex;
+    margin: 20px;
+    gap: 10px;
+}
+
+.btnControl {
+    box-sizing: border-box;
+    border: none;
+    border-radius: 15px;
+    background: linear-gradient(white, yellow, transparent);
+    height: 30px;
+}
+.btnControl:hover {
+    box-sizing: border-box;
+    border: none;
+    background: linear-gradient(white, yellow, green);
+    border-radius: 10px;
+    height: 30px;
 }
 
 @media (max-width: 400px){

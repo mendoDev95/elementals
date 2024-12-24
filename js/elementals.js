@@ -17,6 +17,9 @@ const spanMascotaEnemigo = document.getElementById("mascotaEnemigo")
 const spanVidaJugador = document.getElementById("vidaJugador")
 const spanVidaEnemigo = document.getElementById("vidaEnemigo")
 
+const stnVerMapa = document.getElementById("verMapa")
+const mapa = document.getElementById("mapa")
+
 let elementals = []
 let botones = []
 let ataqueJugador = []
@@ -38,6 +41,7 @@ let btnAgua
 let btnPlanta
 let victoriaJugador = 0
 let victoriaEnemigo = 0
+let lienzo = mapa.getContext("2d")
 
 class Elemental {
     constructor (nombre, foto, cssSelector, cssBtn) {
@@ -46,6 +50,12 @@ class Elemental {
         this.cssSelector = cssSelector
         this.cssBtn = cssBtn
         this.ataques = []
+        this.x = 20
+        this.y = 30
+        this.ancho = 80
+        this.alto = 80
+        this.mapaFoto = new Image()
+        this.mapaFoto.src = foto
     }
 }
 
@@ -107,6 +117,7 @@ function iniciarJuego(){
     stnInfoJugadores.style.display = "none"
     stnReiniciar.style.display = "none"
     stnMensajes.style.display = "none"
+    stnVerMapa.style.display = "none"
 
     elementals.forEach((elemental) => {
         opcionElementals = `
@@ -137,8 +148,8 @@ function aleatorio(min, max) {
 //Seccion de seleccion de mascotas jugador y enemigo
 function seleccionarMascotaJugador(){
     stnSeleccionarMascota.style.display = "none"
-    stnSeleccionarAtaque.style.display = ""
-    stnInfoJugadores.style.display = ""
+    stnSeleccionarAtaque.style.display = "none"
+    stnInfoJugadores.style.display = "none"
 
     //para validacion, posible arreglos!!!!!
     if ( !(inputHipodoge.checked) && !(inputCapipepo.checked) && !(inputRatigueya.checked) && !(inputPydos.checked) && !(inputTucapalma.checked) && !(inputLangostelvis.checked)){
@@ -213,7 +224,9 @@ function extraerAtaques(mascotaJugador){
 
         botones = document.querySelectorAll(".bAtaque")
 
-        stnMensajes.style.display = "flex"
+        stnMensajes.style.display = "none"
+        stnVerMapa.style.display = "flex"
+
         secuenciaAtaque()
     }
     
@@ -331,6 +344,35 @@ function crearMensajeFinal(resultadoFinal){
 
 function reiniciarJuego(){
     location.reload()
+}
+
+function pintarPersonaje() {
+    lienzo.clearRect(0,0, mapa.width, mapa.height)
+    lienzo.drawImage(
+        ratigueya.mapaFoto,
+        ratigueya.x,
+        ratigueya.y,
+        ratigueya.ancho,
+        ratigueya.alto
+    )
+    
+}
+
+function moverRatigueyaArriba() {
+    ratigueya.y = ratigueya.y - 5
+    pintarPersonaje()
+}
+function moverRatigueyaDerecha() {
+    ratigueya.x = ratigueya.x + 5
+    pintarPersonaje()
+}
+function moverRatigueyaIzquierda() {
+    ratigueya.x = ratigueya.x - 5
+    pintarPersonaje()
+}
+function moverRatigueyaAbajo() {
+    ratigueya.y = ratigueya.y + 5
+    pintarPersonaje()
 }
 
 // Eventos
