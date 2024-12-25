@@ -33,6 +33,7 @@ let inputPydos
 let inputTucapalma
 let inputLangostelvis
 let mascotaJugador
+let mascotaJugadorObjeto
 let opcionElementals
 let ataquesElemental
 let ataquesElementalEnemigo
@@ -42,6 +43,9 @@ let btnPlanta
 let victoriaJugador = 0
 let victoriaEnemigo = 0
 let lienzo = mapa.getContext("2d")
+let intervalo
+let mapaBackground = new Image()
+mapaBackground.src = "./assets/mokemap.png"
 
 class Elemental {
     constructor (nombre, foto, cssSelector, cssBtn) {
@@ -56,15 +60,17 @@ class Elemental {
         this.alto = 80
         this.mapaFoto = new Image()
         this.mapaFoto.src = foto
+        this.velocidadX = 0
+        this.velocidadY = 0
     }
 }
 
-let hipodoge = new Elemental ("Hipodoge", "./assest/mokepon_hipodoge.png", "selectorMascotaHipodoge", "hipo")
-let capipepo = new Elemental ("Capipepo", "./assest/mokepon_capipepo.png", "selectorMascotaCapipepo", "capi")
-let ratigueya = new Elemental ("Ratigueya", "./assest/mokepon_ratigueya.png", "selectorMascotaRatigueya", "rati")
-let pydos = new Elemental ("Pydos", "./assest/mokepon_pydos.png", "selectorMascotaPydos", "pydo")
-let tucapalma = new Elemental ("Tucapalma", "./assest/mokepon_tucapalma.png", "selectorMascotaTucapalma", "tuca")
-let langostelvis = new Elemental ("Langostelvis", "./assest/mokepon_langostelvis.png", "selectorMascotaLangostelvis", "lango")
+let hipodoge = new Elemental ("Hipodoge", "./assets/mokepon_hipodoge.png", "selectorMascotaHipodoge", "hipo")
+let capipepo = new Elemental ("Capipepo", "./assets/mokepon_capipepo.png", "selectorMascotaCapipepo", "capi")
+let ratigueya = new Elemental ("Ratigueya", "./assets/mokepon_ratigueya.png", "selectorMascotaRatigueya", "rati")
+let pydos = new Elemental ("Pydos", "./assets/mokepon_pydos.png", "selectorMascotaPydos", "pydo")
+let tucapalma = new Elemental ("Tucapalma", "./assets/mokepon_tucapalma.png", "selectorMascotaTucapalma", "tuca")
+let langostelvis = new Elemental ("Langostelvis", "./assets/mokepon_langostelvis.png", "selectorMascotaLangostelvis", "lango")
 
 hipodoge.ataques.push( 
     { nombre: "💧", id: "btnAgua" },
@@ -227,6 +233,7 @@ function extraerAtaques(mascotaJugador){
         stnMensajes.style.display = "none"
         stnVerMapa.style.display = "flex"
 
+        iniciarMapa()
         secuenciaAtaque()
     }
     
@@ -346,33 +353,90 @@ function reiniciarJuego(){
     location.reload()
 }
 
-function pintarPersonaje() {
+// Logica de Mapa
+function pintarCanvas() {
+    mascotaJugadorObjeto.x = mascotaJugadorObjeto.x + mascotaJugadorObjeto.velocidadX
+    mascotaJugadorObjeto.y = mascotaJugadorObjeto.y + mascotaJugadorObjeto.velocidadY
     lienzo.clearRect(0,0, mapa.width, mapa.height)
     lienzo.drawImage(
-        ratigueya.mapaFoto,
-        ratigueya.x,
-        ratigueya.y,
-        ratigueya.ancho,
-        ratigueya.alto
+        mapaBackground,
+        0,
+        0,
+        mapa.width,
+        mapa.height
+    )
+    lienzo.drawImage(
+        mascotaJugadorObjeto.mapaFoto,
+        mascotaJugadorObjeto.x,
+        mascotaJugadorObjeto.y,
+        mascotaJugadorObjeto.ancho,
+        mascotaJugadorObjeto.alto
     )
     
 }
 
-function moverRatigueyaArriba() {
-    ratigueya.y = ratigueya.y - 5
-    pintarPersonaje()
+function moverArriba() {
+    mascotaJugadorObjeto.velocidadY = -5
 }
-function moverRatigueyaDerecha() {
-    ratigueya.x = ratigueya.x + 5
-    pintarPersonaje()
+function moverDerecha() {
+    mascotaJugadorObjeto.velocidadX = 5
 }
-function moverRatigueyaIzquierda() {
-    ratigueya.x = ratigueya.x - 5
-    pintarPersonaje()
+function moverIzquierda() {
+    mascotaJugadorObjeto.velocidadX = -5
 }
-function moverRatigueyaAbajo() {
-    ratigueya.y = ratigueya.y + 5
-    pintarPersonaje()
+function moverAbajo() {
+    mascotaJugadorObjeto.velocidadY = 5
+}
+function detenerMovimiento() {
+    mascotaJugadorObjeto.velocidadX = 0
+    mascotaJugadorObjeto.velocidadY = 0
+}
+
+function press(event){
+
+    console.log(event.key)
+
+    switch (event.key) {
+        case "ArrowUp" :
+        case "w" :
+            moverArriba()      
+            break
+
+        case "ArrowDown" :
+        case "s" :
+            moverAbajo()
+            break
+
+        case "ArrowRight" :
+        case "d" :
+            moverDerecha()
+            break
+
+        case "ArrowLeft" :
+        case "a" :
+            moverIzquierda()
+            break
+
+        default:
+            break
+    }
+}
+
+function iniciarMapa() {
+    mapa.width = 320
+    mapa.height = 240
+    mascotaJugadorObjeto = obtenerMascota(mascotaJugador)
+    intervalo = setInterval( pintarCanvas, 50)
+
+    window.addEventListener("keydown", press)
+    window.addEventListener("keyup", detenerMovimiento)
+}
+function obtenerMascota() {
+    for (let i = 0; i < elementals.length; i++) {
+        if (mascotaJugador == elementals[i].nombre) {
+            return elementals[i]
+        }
+    }
 }
 
 // Eventos
