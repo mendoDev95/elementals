@@ -465,10 +465,19 @@ input:checked+label {
 }
 
 .iterfazControl {
-    display: flex;
-    margin: 20px;
-    gap: 10px;
+    margin: 15px;
+    width: 50%;
+    display: grid;
+    grid: 
+    ". arriba ." 1fr 
+    "izquierda abajo derecha" 1fr/ 1fr 1fr 1fr;
+    gap: 8px;
+    align-items: center;
 }
+.arriba { grid-area: arriba; }
+.izquierda { grid-area: izquierda; }
+.abajo { grid-area: abajo; }
+.derecha { grid-area: derecha; }
 
 .btnControl {
     box-sizing: border-box;
