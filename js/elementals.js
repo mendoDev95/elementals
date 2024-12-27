@@ -47,18 +47,30 @@ let lienzo = mapa.getContext("2d")
 let intervalo
 let mapaBackground = new Image()
 mapaBackground.src = "./assets/mokemap.png"
+let alturaDeseada
+let anchoDelMapa = window.innerWidth - 20
+const anchoMaximoMapa = 460
+
+if ( anchoDelMapa > anchoMaximoMapa) {
+    anchoDelMapa = anchoMaximoMapa
+}
+
+alturaDeseada = anchoDelMapa * 3 / 4
+
+mapa.width = anchoDelMapa
+mapa.height = alturaDeseada
 
 class Elemental {
-    constructor (nombre, foto, cssSelector, cssBtn, fotoMapa, x = 10, y = 10) {
+    constructor (nombre, foto, cssSelector, cssBtn, fotoMapa) {
         this.nombre = nombre
         this.foto = foto
         this.cssSelector = cssSelector
         this.cssBtn = cssBtn
         this.ataques = []
-        this.x = x
-        this.y = y
         this.ancho = 60
         this.alto = 60
+        this.x = aleatorio( 0, mapa.width - this.ancho)
+        this.y = aleatorio( 0, mapa.height - this.alto)
         this.mapaFoto = new Image()
         this.mapaFoto.src = fotoMapa
         this.velocidadX = 0
@@ -83,9 +95,9 @@ let pydos = new Elemental ("Pydos", "./assets/mokepon_pydos.png", "selectorMasco
 let tucapalma = new Elemental ("Tucapalma", "./assets/mokepon_tucapalma.png", "selectorMascotaTucapalma", "tuca", "./assets/mokepon_tucapalma.png")
 let langostelvis = new Elemental ("Langostelvis", "./assets/mokepon_langostelvis.png", "selectorMascotaLangostelvis", "lango", "./assets/mokepon_langostelvis.png")
 
-let hipodogeEnemigo = new Elemental ("Hipodoge", "./assets/mokepon_hipodoge.png", "selectorMascotaHipodoge", "hipo", "./assets/hipodoge.png", 80, 180)
-let capipepoEnemigo = new Elemental ("Capipepo", "./assets/mokepon_capipepo.png", "selectorMascotaCapipepo", "capi", "./assets/capipepo.png", 310, 250)
-let ratigueyaEnemigo = new Elemental ("Ratigueya", "./assets/mokepon_ratigueya.png", "selectorMascotaRatigueya", "rati", "./assets/ratigueya.png", 340, 60)
+let hipodogeEnemigo = new Elemental ("Hipodoge", "./assets/mokepon_hipodoge.png", "selectorMascotaHipodoge", "hipo", "./assets/hipodoge.png")
+let capipepoEnemigo = new Elemental ("Capipepo", "./assets/mokepon_capipepo.png", "selectorMascotaCapipepo", "capi", "./assets/capipepo.png")
+let ratigueyaEnemigo = new Elemental ("Ratigueya", "./assets/mokepon_ratigueya.png", "selectorMascotaRatigueya", "rati", "./assets/ratigueya.png")
 let pydosEnemigo = new Elemental ("Pydos", "./assets/mokepon_pydos.png", "selectorMascotaPydos", "pydo", "./assets/mokepon_pydos.png")
 let tucapalmaEnemigo = new Elemental ("Tucapalma", "./assets/mokepon_tucapalma.png", "selectorMascotaTucapalma", "tuca", "./assets/mokepon_tucapalma.png")
 let langostelvisEnemigo = new Elemental ("Langostelvis", "./assets/mokepon_langostelvis.png", "selectorMascotaLangostelvis", "lango", "./assets/mokepon_langostelvis.png")
@@ -310,21 +322,10 @@ function extraerAtaques(mascotaJugador){
 //seleccion aleatoria enemiga de ataques
 
 function ataqueAletorioEnemigo(){
-    // let ataqueAleatorio = aleatorio(0, ataquesElementalEnemigo.length -1)
-    // let ataque = ataquesElementalEnemigo[ataqueAleatorio]
-    // ataquesElementalEnemigo.splice(ataqueAleatorio, 1)
 
     ataquesElementalEnemigo.sort(()=>Math.random()-0.5)
     ataqueSeleccionadoEnemigo.push(ataquesElementalEnemigo[0].nombre)
     ataquesElementalEnemigo.shift()
-
-    // if (ataqueSeleccionadoEnemigo == "🔥") {
-    //     ataquesElementalEnemigo.push("🔥")
-    // } else if (ataqueSeleccionadoEnemigo == "💧") {
-    //     ataquesElementalEnemigo.push("💧")
-    // } else {
-    //     ataquesElementalEnemigo.push("🌱")
-    // }
 
     console.log(ataqueSeleccionadoEnemigo, ataquesElementalEnemigo)
 
@@ -472,8 +473,6 @@ function press(event){
 }
 
 function iniciarMapa() {
-    mapa.width = 420
-    mapa.height = 340
     mascotaJugadorObjeto = obtenerMascota(mascotaJugador)
     intervalo = setInterval( pintarCanvas, 50)
 

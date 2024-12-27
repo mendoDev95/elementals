@@ -64,8 +64,6 @@ body {
     rgba(0, 0, 0, 1) 100%);
     box-shadow: 0px 0px 10px 10px rgb(36, 0, 30);
     border-radius: 160px;
-    width: max-content;
-    min-height: 80vh;
     padding: 20px;
     gap: 15px;
 }
@@ -492,44 +490,4 @@ input:checked+label {
     background: linear-gradient(white, yellow, green);
     border-radius: 10px;
     height: 30px;
-}
-
-@media (max-width: 400px){
-    .titulo {
-        width: 70%;
-        height: 70%;
-    }
-    .tarjetas {
-        display:flex;
-        flex-direction: column;
-        align-items: center;
-    }
-    #seleccionarMascota {
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        align-items: center;
-        background-color: #2f0a8e2f;
-        margin: 10px;
-        box-sizing: border-box;
-        border: 1px solid hotpink;
-        border-radius: 160px;
-        width: 100%;
-        height: 100%;
-        padding: 20px;
-    }
-    .btnAtaque{
-        background-color: gray;
-        width: 40px;
-        height: 50px;
-        font-size: 20px;
-        line-height: 20px;
-        border: 3px solid #ff89eb;
-        padding: 5px;
-        border-radius: 20px;
-        box-sizing: border-box;
-        margin: 5px;
-        transition: all 300ms ease-in-out;
-        cursor: pointer;
-    }
 }
