@@ -2,6 +2,7 @@
 <html>
     <head>
         <meta http-equiv=”Content-Type” content=”text/html; charset=UTF-8″ />
+        <meta name="viewport" content="width=device-width, initial-scale=0.8">
         <title>Elementals</title>
         <link rel="stylesheet" href="./style.css">
         <script src="./js/elementals.js" defer></script>
@@ -35,10 +36,10 @@
             <h2 class="titulo">Recorre el mapa con tu mascota</h2>
             <canvas id="mapa"></canvas>
                 <div class="iterfazControl">
-                    <button class="btnControl izquierda" onpointerup="detenerMovimiento()" onpointerdown="moverIzquierda()">⬅ </button>
-                    <button class="btnControl arriba" onpointerup="detenerMovimiento()" onpointerdown="moverArriba()">⬆ </button>
-                    <button class="btnControl abajo" onpointerup="detenerMovimiento()" onpointerdown="moverAbajo()"> ⬇</button>
-                    <button class="btnControl derecha" onpointerup="detenerMovimiento()" onpointerdown="moverDerecha()"> ➡</button>
+                    <button class="btnControl izquierda" onmouseout="detenerMovimiento()" onpointerup="detenerMovimiento()" onpointerdown="moverIzquierda()" oncontextmenu="return false">⬅ </button>
+                    <button class="btnControl arriba" onmouseout="detenerMovimiento()" onpointerup="detenerMovimiento()" onpointerdown="moverArriba()" oncontextmenu="return false;">⬆ </button>
+                    <button class="btnControl abajo" onmouseout="detenerMovimiento()" onpointerup="detenerMovimiento()" onpointerdown="moverAbajo()" oncontextmenu="return false;"> ⬇</button>
+                    <button class="btnControl derecha" onmouseout="detenerMovimiento()" onpointerup="detenerMovimiento()" onpointerdown="moverDerecha()" oncontextmenu="return false;"> ➡</button>
                 </div>
         </section>
 
