@@ -1,0 +1,22 @@
+{
+  "name": "elementals",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mendoDev95/elementals.git"
+  },
+  "author": "mendoDev95",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mendoDev95/elementals/issues"
+  },
+  "homepage": "https://github.com/mendoDev95/elementals#readme",
+  "description": "",
+  "dependencies": {
+    "express": "^4.21.2"
+  }
+}
