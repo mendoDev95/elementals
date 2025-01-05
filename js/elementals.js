@@ -20,6 +20,7 @@ const spanVidaEnemigo = document.getElementById("vidaEnemigo")
 const stnVerMapa = document.getElementById("verMapa")
 const mapa = document.getElementById("mapa")
 
+let jugadorId = null
 let elementals = []
 let botones = []
 let ataqueJugador = []
@@ -196,6 +197,22 @@ function iniciarJuego(){
     })
 
     btnMascotaJugador.addEventListener('click', seleccionarMascotaJugador)
+
+    unirseAlJuego()
+}
+
+// Peticion al servidor (por ahora) para generar un id unico para el jugador
+function unirseAlJuego() {
+    fetch("http://localhost:8080/unirse")
+        .then(function(res) {
+            if (res.ok) {
+                res.text()
+                    .then(function (respuesta) {
+                        console.log(respuesta)
+                        jugadorId = respuesta
+                    })
+                }
+        })
 }
 
 function aleatorio(min, max) {
@@ -242,7 +259,21 @@ function seleccionarMascotaJugador(){
             mascotaJugador = inputLangostelvis.id
     }
     
+    seleccionarElemental(mascotaJugador)
+
     extraerAtaques(mascotaJugador)
+}
+
+function seleccionarElemental(mascotaJugador) {
+    fetch(`http://localhost:8080/elementals/${jugadorId}`, {
+        method: "post",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            elemental: mascotaJugador
+        })
+    })
 }
 
 function seleccionarMascotaEnemigo(enemigo){
@@ -252,12 +283,7 @@ function seleccionarMascotaEnemigo(enemigo){
     ataquesElementalEnemigo = enemigo.ataques
     console.log(enemigo.ataques)
     secuenciaAtaque() 
-    
-    // let seleccionEnemigo = aleatorio(0, elementals.length -1)
 
-    // spanMascotaEnemigo.innerHTML = elementals[seleccionEnemigo].nombre
-    // imgEnemigo.src = elementals[seleccionEnemigo].foto
-    // ataquesElementalEnemigo = elementals[seleccionEnemigo].ataques
 }
 
 //Sistema de Ataques
@@ -290,7 +316,6 @@ function extraerAtaques(mascotaJugador){
         btnReiniciar.addEventListener("click", reiniciarJuego)
 
         iniciarMapa()
-        // secuenciaAtaque()
     }
     
     //Eventos de click dinamicos
@@ -319,8 +344,6 @@ function extraerAtaques(mascotaJugador){
     }
 
 
-//seleccion aleatoria enemiga de ataques
-
 function ataqueAletorioEnemigo(){
 
     ataquesElementalEnemigo.sort(()=>Math.random()-0.5)
@@ -338,11 +361,12 @@ function iniciarCombate() {
     }
 }
 
+// Extraer datos para mostrar luego
 function indexAmbosOponentes(jugador, enemigo) {
     indexAtaqueJugador = ataqueJugador[jugador]
     indexAtaqueEnemigo = ataqueSeleccionadoEnemigo[enemigo]
 }
-//Combate
+
 function combate()
 {
     for (let index = 0; index < ataqueJugador.length; index++) {
@@ -365,7 +389,7 @@ function combate()
     revisarVictoria()
 }
 
-//funcion revisar victorias para darle fin al combate
+//Para darle fin al combate
 function revisarVictoria(){
     if(victoriaJugador == victoriaEnemigo){
         crearMensajeFinal("Empataron el combate, vaya ninjada 🐱‍👤🐱‍💻🐱‍🐉🐱‍👓🐱‍🚀")
@@ -376,7 +400,7 @@ function revisarVictoria(){
     }
 }
 
-//creacion de mensajes de combate
+//Mensajes de combate
 function crearMensaje(resultado){
     let ataqueDelJugador = document.getElementById("ataqueDelJugador")
     let ataqueDelEnemigo = document.getElementById("ataqueDelEnemigo")
@@ -392,7 +416,6 @@ function crearMensaje(resultado){
     ataqueDelEnemigo.appendChild(nuevoAtaqueDelEnemigo)
 }
 
-//creacion del mensaje final
 function crearMensajeFinal(resultadoFinal){
     sectionMensajes.innerHTML = resultadoFinal
 }
@@ -414,6 +437,9 @@ function pintarCanvas() {
         mapa.height
     )
     mascotaJugadorObjeto.pintarElemental()
+
+    enviarPosicion(mascotaJugadorObjeto.x, mascotaJugadorObjeto.y)
+
     hipodogeEnemigo.pintarElemental()
     capipepoEnemigo.pintarElemental()
     ratigueyaEnemigo.pintarElemental()
@@ -423,6 +449,20 @@ function pintarCanvas() {
         revisarColision(capipepoEnemigo)
         revisarColision(ratigueyaEnemigo)
     }
+}
+
+function enviarPosicion(x, y) {
+    fetch(`http://localhost:8080/elementals/${jugadorId}/posicion`, {
+        method: "post",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            x,
+            y
+        })
+
+    })
 }
 
 function moverArriba() {
@@ -521,6 +561,6 @@ function revisarColision(enemigo){
     stnVerMapa.style.display = "none"
     seleccionarMascotaEnemigo(enemigo)
 }
-// Eventos
+
 //evento de carga de DOM antes de iniciar nuestro codigo
 window.addEventListener('load', iniciarJuego)
