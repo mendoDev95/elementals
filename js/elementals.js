@@ -179,8 +179,8 @@ function iniciarJuego(){
     elementals.forEach((elemental) => {
         opcionElementals = `
         <input name="mascota" type="radio" id=${elemental.nombre} />
-                <label class=${elemental.cssSelector} for=${elemental.nombre}>
-                    <p class=${elemental.cssBtn}>${elemental.nombre}</p>
+                <label class=${elemental.cssSelector} oncontextmenu="return false" for=${elemental.nombre}>
+                    <p class=${elemental.cssBtn} oncontextmenu="return false">${elemental.nombre}</p>
                     <img src=${elemental.foto} alt=${elemental.nombre}>
                 </label>
         `
@@ -274,7 +274,7 @@ function extraerAtaques(mascotaJugador){
     function mostrarAtaques(ataques){
         ataques.forEach((ataque) => {
             ataquesElemental = `
-            <button id=${ataque.id} class="btnAtaque bAtaque">${ataque.nombre}</button>
+            <button id=${ataque.id} class="btnAtaque bAtaque" oncontextmenu="return false">${ataque.nombre}</button>
             `
             contenedorAtaques.innerHTML += ataquesElemental 
         })
