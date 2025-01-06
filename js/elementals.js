@@ -62,7 +62,8 @@ mapa.width = anchoDelMapa
 mapa.height = alturaDeseada
 
 class Elemental {
-    constructor (nombre, foto, cssSelector, cssBtn, fotoMapa) {
+    constructor (nombre, foto, cssSelector, cssBtn, fotoMapa, id = null) {
+        this.id = id
         this.nombre = nombre
         this.foto = foto
         this.cssSelector = cssSelector
@@ -96,76 +97,59 @@ let pydos = new Elemental ("Pydos", "./assets/mokepon_pydos.png", "selectorMasco
 let tucapalma = new Elemental ("Tucapalma", "./assets/mokepon_tucapalma.png", "selectorMascotaTucapalma", "tuca", "./assets/mokepon_tucapalma.png")
 let langostelvis = new Elemental ("Langostelvis", "./assets/mokepon_langostelvis.png", "selectorMascotaLangostelvis", "lango", "./assets/mokepon_langostelvis.png")
 
-let hipodogeEnemigo = new Elemental ("Hipodoge", "./assets/mokepon_hipodoge.png", "selectorMascotaHipodoge", "hipo", "./assets/hipodoge.png")
-let capipepoEnemigo = new Elemental ("Capipepo", "./assets/mokepon_capipepo.png", "selectorMascotaCapipepo", "capi", "./assets/capipepo.png")
-let ratigueyaEnemigo = new Elemental ("Ratigueya", "./assets/mokepon_ratigueya.png", "selectorMascotaRatigueya", "rati", "./assets/ratigueya.png")
-let pydosEnemigo = new Elemental ("Pydos", "./assets/mokepon_pydos.png", "selectorMascotaPydos", "pydo", "./assets/mokepon_pydos.png")
-let tucapalmaEnemigo = new Elemental ("Tucapalma", "./assets/mokepon_tucapalma.png", "selectorMascotaTucapalma", "tuca", "./assets/mokepon_tucapalma.png")
-let langostelvisEnemigo = new Elemental ("Langostelvis", "./assets/mokepon_langostelvis.png", "selectorMascotaLangostelvis", "lango", "./assets/mokepon_langostelvis.png")
+const HIPODOGE_ATAQUES = [
+    { nombre: "💧", id: "btnAgua" },
+    { nombre: "💧", id: "btnAgua" },
+    { nombre: "💧", id: "btnAgua" },
+    { nombre: "🌱", id: "btnPlanta" },
+    { nombre: "🔥", id: "btnFuego" },
+]
+hipodoge.ataques.push(...HIPODOGE_ATAQUES)
 
-hipodoge.ataques.push( 
-    { nombre: "💧", id: "btnAgua" },
-    { nombre: "💧", id: "btnAgua" },
-    { nombre: "💧", id: "btnAgua" },
-    { nombre: "🌱", id: "btnPlanta" },
-    { nombre: "🔥", id: "btnFuego" },
-)
-hipodogeEnemigo.ataques.push( 
-    { nombre: "💧", id: "btnAgua" },
-    { nombre: "💧", id: "btnAgua" },
-    { nombre: "💧", id: "btnAgua" },
-    { nombre: "🌱", id: "btnPlanta" },
-    { nombre: "🔥", id: "btnFuego" },
-)
-capipepo.ataques.push( 
+const CAPIPEPO_ATAQUES = [
     { nombre: "🌱", id: "btnPlanta" },
     { nombre: "🌱", id: "btnPlanta" },
     { nombre: "🌱", id: "btnPlanta" },
     { nombre: "💧", id: "btnAgua" },
     { nombre: "🔥", id: "btnFuego" },
-)
-capipepoEnemigo.ataques.push( 
-    { nombre: "🌱", id: "btnPlanta" },
-    { nombre: "🌱", id: "btnPlanta" },
-    { nombre: "🌱", id: "btnPlanta" },
-    { nombre: "💧", id: "btnAgua" },
-    { nombre: "🔥", id: "btnFuego" },
-)
-ratigueya.ataques.push( 
+]
+capipepo.ataques.push(...CAPIPEPO_ATAQUES)
+
+const RATIGUEYA_ATAQUES = [
     { nombre: "🔥", id: "btnFuego" },
     { nombre: "🔥", id: "btnFuego" },
     { nombre: "🔥", id: "btnFuego" },
     { nombre: "🌱", id: "btnPlanta" },
     { nombre: "💧", id: "btnAgua" },
-)
-ratigueyaEnemigo.ataques.push( 
-    { nombre: "🔥", id: "btnFuego" },
-    { nombre: "🔥", id: "btnFuego" },
-    { nombre: "🔥", id: "btnFuego" },
-    { nombre: "🌱", id: "btnPlanta" },
-    { nombre: "💧", id: "btnAgua" },
-)
-pydos.ataques.push(
+]
+ratigueya.ataques.push(...RATIGUEYA_ATAQUES)
+
+const PYDOS_ATAQUES = [
     { nombre: "💧", id: "btnAgua" },
     { nombre: "💧", id: "btnAgua" },
     { nombre: "🌱", id: "btnPlanta" },
     { nombre: "🌱", id: "btnPlanta" },
     { nombre: "🔥", id: "btnFuego" },
-)
-tucapalma.ataques.push(
+]
+pydos.ataques.push(...PYDOS_ATAQUES)
+
+const TUCAPALMA_ATAQUES = [
     { nombre: "🌱", id: "btnPlanta" },
     { nombre: "🌱", id: "btnPlanta" },
     { nombre: "💧", id: "btnAgua" },
     { nombre: "🔥", id: "btnFuego" },
     { nombre: "🔥", id: "btnFuego" },
-)
-langostelvis.ataques.push(
+]
+tucapalma.ataques.push(...TUCAPALMA_ATAQUES)
+
+const LANGSOTELVIS_ATAQUES = [
     { nombre: "🔥", id: "btnFuego" },
     { nombre: "🔥", id: "btnFuego" },
     { nombre: "🌱", id: "btnPlanta" },
     { nombre: "💧", id: "btnAgua" },
     { nombre: "💧", id: "btnAgua" },
-)
+]
+langostelvis.ataques.push(...LANGSOTELVIS_ATAQUES)
 
 elementals.push(hipodoge, pydos, tucapalma, capipepo, ratigueya, langostelvis)
 
@@ -440,15 +424,15 @@ function pintarCanvas() {
 
     enviarPosicion(mascotaJugadorObjeto.x, mascotaJugadorObjeto.y)
 
-    hipodogeEnemigo.pintarElemental()
-    capipepoEnemigo.pintarElemental()
-    ratigueyaEnemigo.pintarElemental()
+    // hipodogeEnemigo.pintarElemental()
+    // capipepoEnemigo.pintarElemental()
+    // ratigueyaEnemigo.pintarElemental()
 
-    if (mascotaJugadorObjeto.velocidadX !== 0 || mascotaJugadorObjeto.velocidadY !== 0) {
-        revisarColision(hipodogeEnemigo)
-        revisarColision(capipepoEnemigo)
-        revisarColision(ratigueyaEnemigo)
-    }
+    // if (mascotaJugadorObjeto.velocidadX !== 0 || mascotaJugadorObjeto.velocidadY !== 0) {
+    //     revisarColision(hipodogeEnemigo)
+    //     revisarColision(capipepoEnemigo)
+    //     revisarColision(ratigueyaEnemigo)
+    // }
 }
 
 function enviarPosicion(x, y) {
@@ -461,7 +445,38 @@ function enviarPosicion(x, y) {
             x,
             y
         })
+    })
+    .then(function(res) {
+        if(res.ok) {
+            res.json()
+                .then(function({ enemigos }) {
+                    console.log(enemigos)
+                    enemigos.forEach(function(enemigo) {
+                        let elementalEnemigo = null
+                        if (enemigo.elemental != undefined) {
+                            const elementalNombre = enemigo.elemental.nombre || ""
+                            if (elementalNombre === "Hipodoge") {
+                                elementalEnemigo = new Elemental ("Hipodoge", "./assets/mokepon_hipodoge.png", "selectorMascotaHipodoge", "hipo", "./assets/hipodoge.png")
+                            }   else if (elementalNombre === "Capipepo") {
+                                elementalEnemigo = new Elemental ("Capipepo", "./assets/mokepon_capipepo.png", "selectorMascotaCapipepo", "capi", "./assets/capipepo.png")
+                            }   else if (elementalNombre === "Ratigueya") {
+                                elementalEnemigo = new Elemental ("Ratigueya", "./assets/mokepon_ratigueya.png", "selectorMascotaRatigueya", "rati", "./assets/ratigueya.png")
+                            }   else if (elementalNombre === "Pydos") {
+                                elementalEnemigo = new Elemental ("Pydos", "./assets/mokepon_pydos.png", "selectorMascotaPydos", "pydo", "./assets/mokepon_pydos.png")
+                            }   else if (elementalNombre === "Tucapalma") {
+                                elementalEnemigo = new Elemental ("Tucapalma", "./assets/mokepon_tucapalma.png", "selectorMascotaTucapalma", "tuca", "./assets/mokepon_tucapalma.png")
+                            }   else if (elementalNombre === "Langostelvis") {
+                                elementalEnemigo = new Elemental ("Langostelvis", "./assets/mokepon_langostelvis.png", "selectorMascotaLangostelvis", "lango", "./assets/mokepon_langostelvis.png")
+                            }
 
+                            elementalEnemigo.x = enemigo.x
+                            elementalEnemigo.y = enemigo.y
+
+                            elementalEnemigo.pintarElemental()
+                        }
+                    })
+                })
+        }
     })
 }
 
