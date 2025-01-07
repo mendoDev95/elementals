@@ -189,7 +189,7 @@ function iniciarJuego(){
 
 // Peticion al servidor para generar un id unico para el jugador
 function unirseAlJuego() {
-    fetch("http://localhost:8080/unirse")
+    fetch("http://192.168.1.101:8080/unirse")
         .then(function(res) {
             if (res.ok) {
                 res.text()
@@ -207,12 +207,10 @@ function aleatorio(min, max) {
 
 //Seccion de seleccion de mascotas jugador y enemigo
 function seleccionarMascotaJugador(){
-    stnSeleccionarMascota.style.display = "none"
-
     //para validacion, posible arreglos!!!!!
     if ( !(inputHipodoge.checked) && !(inputCapipepo.checked) && !(inputRatigueya.checked) && !(inputPydos.checked) && !(inputTucapalma.checked) && !(inputLangostelvis.checked)){
         alert("Marca un Elemental primero 😅")
-        location.reload()
+        return
     }
     else if (inputHipodoge.checked){
             spanMascotaJugador.innerHTML = inputHipodoge.id
@@ -244,14 +242,15 @@ function seleccionarMascotaJugador(){
             imgJugador.src = langostelvis.foto
             mascotaJugador = inputLangostelvis.id
     }
+
+    stnSeleccionarMascota.style.display = "none"
     
     seleccionarElemental(mascotaJugador)
-
     extraerAtaques(mascotaJugador)
 }
 
 function seleccionarElemental(mascotaJugador) {
-    fetch(`http://localhost:8080/elementals/${jugadorId}`, {
+    fetch(`http://192.168.1.101:8080/elementals/${jugadorId}`, {
         method: "post",
         headers: {
             "Content-Type": "application/json"
@@ -322,7 +321,7 @@ function extraerAtaques(mascotaJugador){
     }
 
     function enviarAtaques() {
-        fetch(`http://localhost:8080/elementals/${jugadorId}/ataques`, {
+        fetch(`http://192.168.1.101:8080/elementals/${jugadorId}/ataques`, {
             method: "post",
             headers: {
                 "Content-Type": "application/json"
@@ -336,7 +335,7 @@ function extraerAtaques(mascotaJugador){
     }
 
     function obtenerAtaques() {
-        fetch(`http://localhost:8080/elementals/${enemigoId}/ataques`)
+        fetch(`http://192.168.1.101:8080/elementals/${enemigoId}/ataques`)
             .then(function(res) {
                 if (res.ok) {
                     res.json()
@@ -358,16 +357,6 @@ function extraerAtaques(mascotaJugador){
         console.log(enemigo.ataques)
         secuenciaAtaque() 
     }
-
-// function ataqueAletorioEnemigo(){
-//     ataquesElementalEnemigo.sort(()=>Math.random()-0.5)
-//     ataqueSeleccionadoEnemigo.push(ataquesElementalEnemigo[0].nombre)
-//     ataquesElementalEnemigo.shift()
-
-//     console.log(ataqueSeleccionadoEnemigo, ataquesElementalEnemigo)
-
-//     iniciarCombate()
-// }
 
 function iniciarCombate() {
     if (ataqueJugador.length == 5) {
@@ -462,7 +451,7 @@ function pintarCanvas() {
 }
 
 function enviarPosicion(x, y) {
-    fetch(`http://localhost:8080/elementals/${jugadorId}/posicion`, {
+    fetch(`http://192.168.1.101:8080/elementals/${jugadorId}/posicion`, {
         method: "post",
         headers: {
             "Content-Type": "application/json"
