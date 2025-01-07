@@ -21,7 +21,9 @@ const stnVerMapa = document.getElementById("verMapa")
 const mapa = document.getElementById("mapa")
 
 let jugadorId = null
+let enemigoId = null
 let elementals = []
+let elementalsEnemigos = []
 let botones = []
 let ataqueJugador = []
 let ataqueEnemigo = []
@@ -185,7 +187,7 @@ function iniciarJuego(){
     unirseAlJuego()
 }
 
-// Peticion al servidor (por ahora) para generar un id unico para el jugador
+// Peticion al servidor para generar un id unico para el jugador
 function unirseAlJuego() {
     fetch("http://localhost:8080/unirse")
         .then(function(res) {
@@ -260,16 +262,6 @@ function seleccionarElemental(mascotaJugador) {
     })
 }
 
-function seleccionarMascotaEnemigo(enemigo){
-
-    spanMascotaEnemigo.innerHTML = enemigo.nombre
-    imgEnemigo.src = enemigo.foto
-    ataquesElementalEnemigo = enemigo.ataques
-    console.log(enemigo.ataques)
-    secuenciaAtaque() 
-
-}
-
 //Sistema de Ataques
 function extraerAtaques(mascotaJugador){
     let ataques
@@ -322,14 +314,51 @@ function extraerAtaques(mascotaJugador){
                     boton.style.background = "#112f58"
                     boton.disabled = true
                 }
-                ataqueAletorioEnemigo()
+                if (ataqueJugador.length === 5) {
+                    enviarAtaques()
+                }    
             })
         })
     }
 
+    function enviarAtaques() {
+        fetch(`http://localhost:8080/elementals/${jugadorId}/ataques`, {
+            method: "post",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                ataques: ataqueJugador
+            })
+        })
+
+        intervalo = setInterval(obtenerAtaques, 100)
+    }
+
+    function obtenerAtaques() {
+        fetch(`http://localhost:8080/elementals/${enemigoId}/ataques`)
+            .then(function(res) {
+                if (res.ok) {
+                    res.json()
+                        .then(function({ ataques }) {
+                            if(ataques.length === 5) {
+                                ataqueEnemigo = ataques
+                                combate()
+                            }
+                        })
+                }
+            })
+    }
+
+    function seleccionarMascotaEnemigo(enemigo){
+        spanMascotaEnemigo.innerHTML = enemigo.nombre
+        imgEnemigo.src = enemigo.foto
+        ataquesElementalEnemigo = enemigo.ataques
+        console.log(enemigo.ataques)
+        secuenciaAtaque() 
+    }
 
 function ataqueAletorioEnemigo(){
-
     ataquesElementalEnemigo.sort(()=>Math.random()-0.5)
     ataqueSeleccionadoEnemigo.push(ataquesElementalEnemigo[0].nombre)
     ataquesElementalEnemigo.shift()
@@ -351,8 +380,9 @@ function indexAmbosOponentes(jugador, enemigo) {
     indexAtaqueEnemigo = ataqueSeleccionadoEnemigo[enemigo]
 }
 
-function combate()
-{
+function combate() {
+    clearInterval(intervalo)
+
     for (let index = 0; index < ataqueJugador.length; index++) {
         if (ataqueJugador[index] == ataqueSeleccionadoEnemigo[index]){
             indexAmbosOponentes(index, index)
@@ -424,15 +454,10 @@ function pintarCanvas() {
 
     enviarPosicion(mascotaJugadorObjeto.x, mascotaJugadorObjeto.y)
 
-    // hipodogeEnemigo.pintarElemental()
-    // capipepoEnemigo.pintarElemental()
-    // ratigueyaEnemigo.pintarElemental()
-
-    // if (mascotaJugadorObjeto.velocidadX !== 0 || mascotaJugadorObjeto.velocidadY !== 0) {
-    //     revisarColision(hipodogeEnemigo)
-    //     revisarColision(capipepoEnemigo)
-    //     revisarColision(ratigueyaEnemigo)
-    // }
+    elementalsEnemigos.forEach(function(elemental) {
+        elemental.pintarElemental()
+        revisarColision(elemental)
+    })
 }
 
 function enviarPosicion(x, y) {
@@ -451,28 +476,28 @@ function enviarPosicion(x, y) {
             res.json()
                 .then(function({ enemigos }) {
                     console.log(enemigos)
-                    enemigos.forEach(function(enemigo) {
+                    elementalsEnemigos = enemigos.map(function(enemigo) {
                         let elementalEnemigo = null
+                        const elementalNombre = enemigo.elemental.nombre || ""
                         if (enemigo.elemental != undefined) {
-                            const elementalNombre = enemigo.elemental.nombre || ""
                             if (elementalNombre === "Hipodoge") {
-                                elementalEnemigo = new Elemental ("Hipodoge", "./assets/mokepon_hipodoge.png", "selectorMascotaHipodoge", "hipo", "./assets/hipodoge.png")
+                                elementalEnemigo = new Elemental ("Hipodoge", "./assets/mokepon_hipodoge.png", "selectorMascotaHipodoge", "hipo", "./assets/hipodoge.png", enemigo.id)
                             }   else if (elementalNombre === "Capipepo") {
-                                elementalEnemigo = new Elemental ("Capipepo", "./assets/mokepon_capipepo.png", "selectorMascotaCapipepo", "capi", "./assets/capipepo.png")
+                                elementalEnemigo = new Elemental ("Capipepo", "./assets/mokepon_capipepo.png", "selectorMascotaCapipepo", "capi", "./assets/capipepo.png", enemigo.id)
                             }   else if (elementalNombre === "Ratigueya") {
-                                elementalEnemigo = new Elemental ("Ratigueya", "./assets/mokepon_ratigueya.png", "selectorMascotaRatigueya", "rati", "./assets/ratigueya.png")
+                                elementalEnemigo = new Elemental ("Ratigueya", "./assets/mokepon_ratigueya.png", "selectorMascotaRatigueya", "rati", "./assets/ratigueya.png", enemigo.id)
                             }   else if (elementalNombre === "Pydos") {
-                                elementalEnemigo = new Elemental ("Pydos", "./assets/mokepon_pydos.png", "selectorMascotaPydos", "pydo", "./assets/mokepon_pydos.png")
+                                elementalEnemigo = new Elemental ("Pydos", "./assets/mokepon_pydos.png", "selectorMascotaPydos", "pydo", "./assets/mokepon_pydos.png", enemigo.id)
                             }   else if (elementalNombre === "Tucapalma") {
-                                elementalEnemigo = new Elemental ("Tucapalma", "./assets/mokepon_tucapalma.png", "selectorMascotaTucapalma", "tuca", "./assets/mokepon_tucapalma.png")
+                                elementalEnemigo = new Elemental ("Tucapalma", "./assets/mokepon_tucapalma.png", "selectorMascotaTucapalma", "tuca", "./assets/mokepon_tucapalma.png", enemigo.id)
                             }   else if (elementalNombre === "Langostelvis") {
-                                elementalEnemigo = new Elemental ("Langostelvis", "./assets/mokepon_langostelvis.png", "selectorMascotaLangostelvis", "lango", "./assets/mokepon_langostelvis.png")
+                                elementalEnemigo = new Elemental ("Langostelvis", "./assets/mokepon_langostelvis.png", "selectorMascotaLangostelvis", "lango", "./assets/mokepon_langostelvis.png", enemigo.id)
                             }
 
                             elementalEnemigo.x = enemigo.x
                             elementalEnemigo.y = enemigo.y
 
-                            elementalEnemigo.pintarElemental()
+                            return elementalEnemigo
                         }
                     })
                 })
@@ -570,6 +595,9 @@ function revisarColision(enemigo){
 
     detenerMovimiento()
     clearInterval(intervalo)
+
+    enemigoId = enemigo.id
+
     stnSeleccionarAtaque.style.display = "flex"
     stnInfoJugadores.style.display = "grid"
     stnMensajes.style.display = "flex"
