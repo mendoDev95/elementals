@@ -343,6 +343,7 @@ function extraerAtaques(mascotaJugador){
                         .then(function({ ataques }) {
                             if(ataques.length === 5) {
                                 ataqueEnemigo = ataques
+                                ataqueSeleccionadoEnemigo.push(...ataques)
                                 combate()
                             }
                         })
@@ -358,15 +359,15 @@ function extraerAtaques(mascotaJugador){
         secuenciaAtaque() 
     }
 
-function ataqueAletorioEnemigo(){
-    ataquesElementalEnemigo.sort(()=>Math.random()-0.5)
-    ataqueSeleccionadoEnemigo.push(ataquesElementalEnemigo[0].nombre)
-    ataquesElementalEnemigo.shift()
+// function ataqueAletorioEnemigo(){
+//     ataquesElementalEnemigo.sort(()=>Math.random()-0.5)
+//     ataqueSeleccionadoEnemigo.push(ataquesElementalEnemigo[0].nombre)
+//     ataquesElementalEnemigo.shift()
 
-    console.log(ataqueSeleccionadoEnemigo, ataquesElementalEnemigo)
+//     console.log(ataqueSeleccionadoEnemigo, ataquesElementalEnemigo)
 
-    iniciarCombate()
-}
+//     iniciarCombate()
+// }
 
 function iniciarCombate() {
     if (ataqueJugador.length == 5) {
